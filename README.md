@@ -141,3 +141,5 @@ In order to address any ethical concerns about the use of data, I note the follo
 * ./data/gathering_complete.csv - this is the raw data I got from Reddit.
 * ./data/tasting_notes.txt - vocabulary list used by my countvectoriser in my pipeline.
 * ./data/Whisky_Review_Archive.csv - original spreadsheet downloaded from Reddit, known as the '[Whisky Review Archive](https://docs.google.com/spreadsheets/d/1X1HTxkI6SqsdpNSkSSivMzpxNT-oeTbjFFDdEkXD30o/edit#gid=695409533&fvid=484110565)' [Google Docs link].
+* gridsearch.png - image used in the readme
+* reviewlengths.png - image used in the readme
