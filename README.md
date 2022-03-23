@@ -27,6 +27,10 @@ This is the Capstone Project for Udacity's [Become a Data Scientist](https://www
 
 The final project could be in the form of either a blog post documenting all of the steps from start to finish of your project, or a deployment of a web application (or something that can be run on a local machine).
 
+## Problem Statement
+
+Whisky reviews often contain lots of florid language describing the nose, palate and finish of a whisky, but how much information is conveyed by such material? One way of putting a lower bound on the amount of information conveyed by such tasting notes is offered by using machine learning. If a natural language, machine learning algorithm trained on a set of whisky reviews can classify a whisky based on its tasting notes significantly better than chance, that tells us something: The greater the accuracy of the algorithm, the more information is contained in reviews. This is the problem to be solved - how much information does a whisky review contain?
+
 ## Aim
 
 The aim of Whisky Project is to develop a web application that would allow users to enter tasting notes on a whisky, and then return a prediction on what whisky it was based on a whisky classifier trained from data gathered from Reddit.
@@ -66,9 +70,11 @@ The model uses three countvectorizers in parallel on the nose, palate and finish
 
 The dataset was split 80:20 randomly into training and testing sets, and I tested RandomForestClassifier, KNeighborsClassifier, SVC, GaussianProcessClassifier, DecisionTreeClassifier, MLPClassifier, AdaBoostClassifier, GaussianNB, QuadraticDiscriminantAnalysis, LogisticRegression, and SGDClassifier with default values to get a sense of which ones would be best to have a go at fine-tuning. SVC, logistic regression and random forest came out well, but SGD and MLP also did fairly well. But because I didn't want a grid search taking forever, I ended up just looking for the best version of SVC, logistic regression and random forest, tuning each of them by adjusting their hyperparameters and carrying out a grid search just on the training set.
 
+## Metrics
+
 In this task, and when performing a grid search (where I used scoring='accuracy'), I was evaluating the performance of the pipeline on accuracy. Why accuracy? Well, there wasn't any particular reason to weight type I or type II errors differently. I just wanted an algorithm that maximised the probability of guessing correctly, and that's what accuracy is.
 
-## Results and Conclusions
+## Results
 
 Initial classifiers on default settings gave the following scores for accuracy when tested on the 20% testing set:
 
@@ -92,13 +98,17 @@ The grid search returned the following values for accuracy within the grid searc
 
 Thus, after performing a grid search with a range of fine-tuning options for the hyperparameters for support vector machine, logistic regression and random forest classifiers, it turns out that a support vector machine classifier with hyperparameters 'degree=1, C=2' gives the highest accuracy. When this was tested on the testing data, it gave a final score of 21% for accuracy.
 
-It is fair to say that the classifier is not particularly accurate. It does not reliably identify the correct brand of whisky when given notes by the user. Two things, however, must be borne in mind here to put this result in context:
+## Conclusions
+
+The problem we set out to solve was essentially to develop an app as a way to answer the question "How much information does a whisky review contain?" How, an accuracy score of 21% means that it is fair to say that the classifier is not particularly accurate. It does not reliably identify the correct brand of whisky when given notes by the user. However, we have to put this in the context of this wider problem:
 
 1. Taste is an inherently subjective phenomenon, an interaction between a particularly-situated human subject and objective reality. Furthermore, describing those sensations is nothing short of an art form that requires years of dedicated practice to master. Novel whisky tasters will struggle to identify notes beyond very obvious ones such as 'tar', 'smoke', 'vanilla', 'smooth', 'dry', whereas experienced whisky tasters will use a vocabulary that consistently distinguishes, say, 'spearmint' from 'peppermint', 'barley sugar' from 'cane sugar', etc. The point here is that there's a hard limit to how much signal there will be in a training set such as this because anyone can post a review to Reddit, and there's no such thing as a 'wrong review'.
 
 2. Many whiskies _just are_ incredibly similar and will outstrip our ability to describe them. You will struggle in vain to detect differences reliably between many Speyside and Highland malt whiskies, for instance. Even if you can reliably identify a particular whisky (e.g. in blind taste tests), that doesn't necessarily mean you will be able to describe the difference. The notes sometimes just are very similar indeed.
 
-Thus, I wasn't expecting a very high accuracy score going in. I was mainly interested to see _just how much_ signal there was in all the tasting notes, and I think it's fair to say that actually there is quite a bit of signal. Looking at tasting notes does indeed tell you quite a bit about what whisky it is. You probably won't know exactly which one it is, but you won't be far away. This aligns with informal feedback on the app I've had from people who know their whisky. Even when the guesses are wrong, the guesses make sense given the tasting notes people have been putting in. The model is producing a multi-dimensional matrix where the Euclidean distance does seem to correspond more or less to one's intuitive sense of which whiskies are similar to each other, which is a good sign.
+Thus, really no one should have been expecting a very high accuracy score going in. I was mainly interested to see _just how much_ signal there was in all the tasting notes, and I think it's fair to say that actually there is quite a bit of signal. A dumb guesser that simply guessed Laphroaig (the most popular whisky in the training set) would be right 3.7% of the time, assuming that users enter reviews in the same proportions as the training set, whereas we can expect accuracy in the region of 21%.
+
+Thus, the tasting notes in a review do indeed give you information about what whisky it is. You probably won't know exactly which one it is, but you won't be far away. This aligns with informal feedback on the app I've had from people who know their whisky. Even when the guesses are wrong, the guesses make sense given the tasting notes people have been putting in. The model is producing a multi-dimensional matrix where the Euclidean distance does seem to correspond more or less to one's intuitive sense of which whiskies are similar to each other, which is a good sign.
 
 ## Evaluation
 
