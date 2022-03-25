@@ -1,6 +1,6 @@
 # Whisky Project
 
-For the attention of Udacity reviewers: Please note that this project is not a blog submission, but an **application** submission. This repository contains the bulk of the background work and code for Whisky Project. The code for the web application hosted on Heroku is to be found on another GitHub repository - [whiskyapp](https://github.com/jamiepotter17/whiskyapp).
+This repository contains the bulk of the background work and code for Whisky Project. The code for the web application hosted on Heroku is to be found on another GitHub repository - [whiskyapp](https://github.com/jamiepotter17/whiskyapp).
 
 ## Summary
 
